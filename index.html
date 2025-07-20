@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Mobile Recharge</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS codes will be in Part 2 */
+    </style>
+</head>
+<body>
+
+    <!-- Top Banner Ad 1 -->
+    <div id="bannerAdTop1" class="banner-ad">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'f69e2cab247c477b9f1b9b40fc55c1cf',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/f69e2cab247c477b9f1b9b40fc55c1cf/invoke.js"></script>
+    </div>
+
+    <!-- Celebration Confetti Container -->
+    <div id="celebrationConfetti" class="confetti-container"></div>
+
+    <div class="container">
+        <h1>Recharge Your Mobile Instantly!</h1>
+
+        <div class="input-group">
+            <input type="tel" id="mobileNumber" maxlength="10" placeholder=" " pattern="[0-9]{10}" required>
+            <label for="mobileNumber">Enter Your 10-digit Mobile Number</label>
+        </div>
+
+        <div class="input-group">
+            <select id="network" required>
+                <option value="" disabled selected>Select Network</option>
+                <option value="jio">Jio</option>
+                <option value="airtel">Airtel</option>
+                <option value="vi">Vi</option>
+                <option value="bsnl">BSNL</option>
+                <option value="mtnl">MTNL</option>
+            </select>
+            <label for="network">Select Network</label>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="rechargeAmount" placeholder=" " required>
+            <label for="rechargeAmount">Enter amount (₹)</label>
+        </div>
+
+        <button class="plan-button" id="showPlansBtn">Popular Plans</button>
+
+        <button class="recharge-button" id="rechargeBtn" disabled>
+            RECHARGE NOW
+            <span class="ripple"></span>
+        </button>
+    </div>
+
+    <!-- Plan Popup/Modal -->
+    <div id="planPopup" class="plan-popup">
+        <div class="plan-popup-content">
+            <span class="close-button" id="closePlanPopup">×</span>
+            <h3>Choose a Popular Plan</h3>
+            <div class="plan-card" data-amount="199">₹199 – 1.5GB/day – 28 days</div>
+            <div class="plan-card" data-amount="299">₹299 – 2GB/day – 28 days</div>
+            <div class="plan-card" data-amount="719">₹719 – 1.5GB/day – 84 days</div>
+            <div class="plan-card" data-amount="399">₹399 – 2.5GB/day – 56 days</div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">×</span>
+            <div class="icon-wrapper"> <!-- New wrapper for icon and spark -->
+                <i class="fas fa-check-circle"></i>
+                <div class="sparkle"></div> <!-- Element for the spark animation -->
+            </div>
+            <h2>Recharge Request Submitted Successfully!</h2>
+            <p>You’ll receive an SMS confirmation shortly.</p>
+
+            <div class="whatsapp-share-section">
+                <p>Share with 10 friends and get recharge instantly!</p>
+                <a href="#" class="whatsapp-button" id="whatsappShareBtn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Share
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Tags for Ringtones -->
+    <audio id="initialRingtone" src="sound.mp3" preload="auto"></audio>
+    <audio id="successRingtone" src="bell.mp3" preload="auto"></audio>
+
+    <!-- Bottom Banner Ad 1 -->
+    <div id="bannerAdBottom1" class="banner-ad">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'f69e2cab247c477b9f1b9b40fc55c1cf',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/f69e2cab247c477b9f1b9b40fc55c1cf/invoke.js"></script>
+    </div>
+
+    <!-- Bottom Banner Ad 2 -->
+    <div id="bannerAdBottom2" class="banner-ad">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'f69e2cab247c477b9f1b9b40fc55c1cf',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/f69e2cab247c477b9f1b9b40fc55c1cf/invoke.js"></script>
+    </div>
+
+    <!-- JavaScript codes will be in Part 3 -->
+    <style>
+        :root {
+            --primary-color: #8a2be2; /* BlueViolet */
+            --secondary-color: #9370db; /* MediumPurple */
+            --accent-color: #da70d6; /* Orchid */
+            --text-color: #ffffff;
+            --background-color: #1a1a2e; /* Dark Navy */
+            --card-background: #2a2a4e; /* Slightly lighter dark */
+            --button-shadow: 0 0 15px rgba(173, 216, 230, 0.7); /* Light blue glow */
+            --glow-intensity: 1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            position: relative; /* For positioning ads */
+        }
+
+        /* Banner Ad Container Styling */
+        .banner-ad {
+            width: 100%;
+            max-width: 468px; /* Standard ad width */
+            text-align: center;
+            margin: 10px 0;
+            z-index: 5; /* Ensure ads are above some elements if needed */
+            background-color: rgba(0,0,0,0.5); /* Background for ad container */
+            padding: 5px 0;
+            border-radius: 5px;
+        }
+        
+        /* Positioning for Top Banner */
+        #bannerAdTop1 {
+            position: absolute;
+            top: 10px; /* Adjust as needed */
+            left: 10px; /* Adjust as needed */
+            z-index: 100; /* Higher z-index to be on top */
+        }
+
+        /* Positioning for Bottom Banners */
+        #bannerAdBottom1 {
+            position: absolute;
+            bottom: 70px; /* Adjust based on bottom nav bar height + margin */
+            left: 10px; /* Adjust as needed */
+            z-index: 100;
+        }
+        #bannerAdBottom2 {
+            position: absolute;
+            bottom: 70px; /* Adjust based on bottom nav bar height + margin */
+            right: 10px; /* Adjust as needed */
+            z-index: 100;
+        }
+
+        /* Ensure iframes inside ads don't break layout */
+        .banner-ad iframe {
+            max-width: 100%;
+            height: auto; /* Adjust height dynamically if possible */
+            display: block; /* Remove extra space below */
+            margin: 0 auto; /* Center iframe */
+        }
+
+        /* Confetti Container */
+        .confetti-container {
+            position: fixed; /* Use fixed to cover the entire viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 10;
+            overflow: hidden; /* Crucial to keep confetti within bounds */
+        }
+
+        /* Confetti Piece Styles */
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            background-color: #f0f0f0; /* Default color, overridden by JS */
+            animation-fill-mode: forwards;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        }
+        /* Confetti Animation Keyframes */
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(calc(var(--rotate, 0) * 1deg)) scale(1.2); /* Dynamic rotation */
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden; /* To contain rounded corners of inputs */
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .input-group input::placeholder,
+        .input-group select {
+             color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border: 2px solid transparent;
+            box-shadow: 0 0 10px rgba(173, 216, 230, var(--glow-intensity));
+            --glow-intensity: 1; /* Ensure glow */
+            transform: translateY(-2px);
+        }
+
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group input:focus + label {
+            transform: translateY(-25px) translateX(5px) scale(0.8);
+            color: var(--accent-color);
+        }
+
+        select {
+            appearance: none; /* Remove default arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='24px' height='24px'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 18px;
+        }
+
+        .plan-button {
+            background: none;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .plan-button:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .recharge-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: var(--text-color);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px; /* Rounded button */
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(173, 216, 230, 0.3);
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden; /* For ripple effect */
+        }
+
+        .recharge-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(173, 216, 230, 0.7);
+            --glow-intensity: 1.2;
+        }
+
+        .recharge-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            position: relative; /* Needed for positioning sparkle */
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* Wrapper for icon and sparkle */
+        .icon-wrapper {
+            position: relative; /* To position the sparkle relative to the icon */
+            display: inline-block; /* Crucial for wrapping content tightly */
+            margin-bottom: 20px;
+        }
+
+        .modal-content i.fa-check-circle {
+            font-size: 3em;
+            color: #4CAF50; /* Green for success */
+            position: relative; /* For z-index stacking */
+            z-index: 2; /* Make sure icon is above sparkle */
+        }
+
+        /* Sparkle/Lightning Animation */
+        .sparkle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px; /* Size of the spark */
+            height: 60px;
+            background: radial-gradient(circle, rgba(255, 204, 51, 0.8) 0%, rgba(255, 204, 51, 0) 60%); /* Yellowish glow */
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0); /* Start small and centered */
+            opacity: 0;
+            animation: sparkle-effect 1.5s ease-out forwards;
+            z-index: 1; /* Behind the icon */
+        }
+
+        @keyframes sparkle-effect {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2); /* Slightly larger */
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1); /* Back to normal size */
+                opacity: 0;
+            }
+        }
+        .modal-content .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content .close-button:hover {
+            opacity: 1;
+        }
+
+        .modal-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+        }
+
+        .whatsapp-share-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-share-section p {
+            font-size: 1em; /* Increased font size */
+            font-weight: 600; /* Made it bold for better visibility */
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #25D366; /* WhatsApp Green */
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .whatsapp-button i {
+            font-size: 1.2em;
+            margin-right: 8px;
+            color: var(--text-color);
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Plan Popup/Modal */
+        .plan-popup {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .plan-popup.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .plan-popup-content {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+        }
+
+        .plan-popup.active .plan-popup-content {
+            transform: scale(1);
+        }
+
+        .plan-popup-content .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.3em;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .plan-popup-content .close-button:hover {
+            opacity: 1;
+        }
+
+        .plan-popup-content h3 {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .plan-card {
+            background-color: var(--input-group-background, rgba(255, 255, 255, 0.1));
+            border: 1px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.95em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .plan-card:hover {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 5px 15px var(--accent-color);
+        }
+
+        .plan-card.selected {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            .modal-content, .plan-popup-content {
+                width: 90%;
+            }
+            .recharge-button {
+                font-size: 1.1em;
+                padding: 12px 25px;
+            }
+            /* Adjust ad positioning for smaller screens */
+            #bannerAdTop1, #bannerAdBottom1, #bannerAdBottom2 {
+                position: static; /* Remove absolute positioning */
+                margin: 5px auto; /* Center ads */
+                max-width: 100%;
+            }
+            body {
+                justify-content: flex-start; /* Align content to top */
+                padding-top: 70px; /* Make space for top ads */
+                padding-bottom: 140px; /* Make space for bottom ads */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6em;
+            }
+            .input-group label {
+                font-size: 0.85em;
+            }
+            .input-group input, .input-group select {
+                padding: 10px 12px;
+                font-size: 0.95em;
+            }
+            .plan-card {
+                font-size: 0.9em;
+            }
+            .whatsapp-button {
+                font-size: 0.95em;
+                padding: 8px 15px;
+            }
+            .modal-content i {
+                font-size: 2.5em;
+            }
+            .modal-content h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+<script>
+    const mobileNumberInput = document.getElementById('mobileNumber');
+    const networkSelect = document.getElementById('network');
+    const rechargeAmountInput = document.getElementById('rechargeAmount');
+    const rechargeBtn = document.getElementById('rechargeBtn');
+    const showPlansBtn = document.getElementById('showPlansBtn');
+    const planPopup = document.getElementById('planPopup');
+    const closePlanPopup = document.getElementById('closePlanPopup');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const closeModal = document.getElementById('closeModal');
+    const whatsappShareBtn = document.getElementById('whatsappShareBtn');
+    
+    const initialRingtone = document.getElementById('initialRingtone'); // Not used yet
+    const successRingtone = document.getElementById('successRingtone');
+
+    // Get the sparkle element
+    const sparkleElement = document.querySelector('.modal-content .sparkle');
+
+    // --- Your Actual App Link ---
+    // Replace this with your actual app link. If you don't have one yet, it will use a placeholder.
+    const yourAppLink = 'https://your-app-link.com'; // !!! CHANGE THIS TO YOUR REAL APP LINK !!!
+
+    // Function to check if all inputs are valid and enable/disable button
+    function updateRechargeButtonState() {
+        const mobileNumber = mobileNumberInput.value.trim();
+        const rechargeAmount = rechargeAmountInput.value.trim();
+        const network = networkSelect.value;
+
+        if (mobileNumber.length === 10 && !isNaN(mobileNumber) && rechargeAmount > 0 && network) {
+            rechargeBtn.disabled = false;
+        } else {
+            rechargeBtn.disabled = true;
+        }
+    }
+
+    // Event listeners for input changes
+    mobileNumberInput.addEventListener('input', updateRechargeButtonState);
+    networkSelect.addEventListener('change', updateRechargeButtonState);
+    rechargeAmountInput.addEventListener('input', updateRechargeButtonState);
+
+    // Recharge button click handler
+    rechargeBtn.addEventListener('click', function(e) {
+        if (rechargeBtn.disabled) return;
+
+        // Ripple effect
+        const rect = e.target.getBoundingClientRect();
+        const ripple = e.target.querySelector('.ripple');
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple'); // Add class to trigger animation
+
+        // Simulate recharge and show confirmation modal
+        setTimeout(() => {
+            confirmationModal.classList.add('active');
+            
+            // Play success sound and trigger confetti animation
+            if (successRingtone) {
+                successRingtone.play().catch(error => {
+                    console.log("Success sound autoplay failed: ", error);
+                });
+            }
+            triggerCelebrationAnimation(); // Call the animation function
+            triggerSparkleAnimation(); // Call the new sparkle animation function
+
+            ripple.classList.remove('ripple'); // Clean up ripple after a delay
+        }, 300); // Delay to show ripple before modal
+    });
+
+    // Function to clear confetti and stop sound on modal close
+    function cleanupCelebration() {
+        const confettiContainer = document.getElementById('celebrationConfetti');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = ''; // Clear previous confetti
+        }
+        if (successRingtone && !successRingtone.paused) {
+            successRingtone.pause();
+            successRingtone.currentTime = 0; // Reset playback
+        }
+        // Also remove sparkle animation class if it's active
+        if (sparkleElement) {
+            sparkleElement.style.animation = 'none'; // Remove animation property
+            setTimeout(() => { // Re-apply animation if modal is reopened
+                sparkleElement.style.animation = ''; // Reset animation property
+            }, 10); 
+        }
+    }
+
+    // Close confirmation modal
+    closeModal.addEventListener('click', cleanupCelebration);
+
+    // Close modal by clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === confirmationModal) {
+            confirmationModal.classList.remove('active');
+            cleanupCelebration();
+        }
+        if (event.target === planPopup) {
+            planPopup.classList.remove('active');
+        }
+    });
+    // Show Popular Plans Popup
+    showPlansBtn.addEventListener('click', () => {
+        planPopup.classList.add('active');
+    });
+
+    // Close Popular Plans Popup
+    closePlanPopup.addEventListener('click', () => {
+        planPopup.classList.remove('active');
+    });
+
+    // Select plan from popup
+    document.querySelectorAll('.plan-card').forEach(planCard => {
+        planCard.addEventListener('click', function() {
+            const amount = this.getAttribute('data-amount');
+            rechargeAmountInput.value = amount;
+            planPopup.classList.remove('active');
+            updateRechargeButtonState(); // Update button state after selecting plan
+            this.classList.add('selected'); // Visually select the plan
+            // Remove selection from other plans
+            document.querySelectorAll('.plan-card').forEach(pc => {
+                if (pc !== this) {
+                    pc.classList.remove('selected');
+                }
+            });
+        });
+    });
+
+    // WhatsApp Share Button
+    whatsappShareBtn.addEventListener('click', function(e) {
+        const mobileNumber = mobileNumberInput.value;
+        const rechargeAmount = rechargeAmountInput.value;
+        const network = networkSelect.value;
+        
+        // Capitalize first letter of network name for better display
+        const formattedNetwork = network.charAt(0).toUpperCase() + network.slice(1);
+
+        // Construct the new WhatsApp message with proper symbols and formatting
+        // Replaced Unicode emojis with their text equivalents for better compatibility
+        const message = encodeURIComponent(
+            `I just got free recharge of ${rechargeAmount} INSTANTLY using this crazy new site!\n\n` +
+            `Get your instant recharge too! ${yourAppLink}\n` +
+            `(Yes, it actually works)`
+        );
+        
+        // Update the href for the WhatsApp share button
+        this.href = `https://wa.me/?text=${message}`;
+    });
+
+    // --- Function for Celebration Animation ---
+    function triggerCelebrationAnimation() {
+        const confettiContainer = document.getElementById('celebrationConfetti');
+        if (!confettiContainer) {
+            console.error("Celebration confetti container not found!");
+            return; 
+        }
+
+        confettiContainer.innerHTML = ''; // Clear previous confetti
+        const numConfetti = 100; // More confetti for a bigger celebration
+        // Using a mix of pastel and bright colors for a festive look
+        const colors = ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#A06CD9', '#FF8C69', '#6BD4DE', '#FFB74D', '#9575CD', '#E57373']; 
+
+        for (let i = 0; i < numConfetti; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            // Confetti animation delay - make it a bit longer to see them appear
+            confetti.style.animationDelay = `${Math.random() * 1.0}s`; // Increased delay a bit
+            confetti.style.setProperty('--rotate', Math.floor(Math.random() * 360 - 180)); // Random rotation
+            confettiContainer.appendChild(confetti);
+        }
+
+        // Start animation after a slight delay
+        setTimeout(() => { 
+            const confettiPieces = confettiContainer.querySelectorAll('.confetti-piece');
+            confettiPieces.forEach(piece => {
+                // The animation name is 'confetti-fall' and it takes 2.5s with ease-out timing
+                piece.style.animation = `confetti-fall 2.5s ease-out forwards`; 
+            });
+        }, 50); // Increased delay from 10ms to 50ms
+
+        // Remove confetti after animation finishes
+        setTimeout(() => {
+            confettiContainer.innerHTML = '';
+        }, 3000); // Clean up after 3 seconds
+    }
+
+    // --- Function for Sparkle Animation ---
+    function triggerSparkleAnimation() {
+        if (sparkleElement) {
+            sparkleElement.style.animation = 'none'; // Reset animation if already running
+            // Trigger reflow to restart animation
+            sparkleElement.offsetHeight; // Reading a property forces reflow
+            sparkleElement.style.animation = 'sparkle-effect 1.5s ease-out forwards';
+        }
+    }
+
+    // Initial check for button state
+    updateRechargeButtonState();
+</script>
+</body>
+</html>
